@@ -9,6 +9,12 @@
  */
 {
   "sections": {
+    "section_slider_products_iNV9a9": {
+      "type": "section-slider-products",
+      "settings": {
+        "include_margins": true
+      }
+    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -39,6 +45,7 @@
     }
   },
   "order": [
+    "section_slider_products_iNV9a9",
     "featured_collection"
   ]
 }
