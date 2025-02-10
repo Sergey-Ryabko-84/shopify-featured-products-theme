@@ -2,14 +2,51 @@
   <div class="slider-product-proposal">
     <div class="page-width slider-product-proposal__container">
       <div class="slider-product-proposal__content">
-        <h2 class="slider-product-proposal__title">Featured Products</h2>
+        <div class="slider-product-proposal__title-wrapper">
+          <h2 class="slider-product-proposal__title">Featured Products</h2>
+          <div class="slider-product-proposal__title-line"/>
+        </div>
       </div>
       <div class="slider-product-proposal__slider">
         <ul class="slider-product-proposal__slider-list">
           {% for block in section.blocks %}
             {% if block.settings.proposal_product != blanc %}
               {%  assign product = block.settings.proposal_product %}              
-              <li class="slider-product-proposal_item" style="border: 1px solid red;">{{ product.title }}</li>
+              <li class="slider-product-proposal__slider-item">
+                <a href="{{ product.url }}" class="slider-item__link">
+                  <div class="slider-item__image">
+                    <img             
+                      src="{{ product.featured_image | image_url: width: 305 }}"
+                      alt="{{ product.featured_image.alt | default: product.title }}"
+                      height="229"
+                      loading="lazy" 
+                      class="slider-item__picture"
+                    >
+                  </div>
+                </a>                
+                <div class="slider-item__content">
+                  <div>
+                    <h4 class="slider-item__title">{{ product.title }}</h4>
+                    <div class="slider-item__description">
+                      {{ product.content | strip_html | truncate: 64}}
+                    </div>
+                  </div>
+                  <div >
+                    <div class="slider-item__rating">
+                      <span>4.7/223</span>
+                    </div>
+                    <div class="slider-item__price">
+                      <div class="slider-item__money">
+                        {{ product.price |  money }}
+                      </div>
+                      <select name="options" id="options" class="slider-item__options">
+                        <option value="0">Options</option>
+                      </select>
+                    </div>
+                    <button class="slider-item__submit_button">Add To Cart</button>
+                  </div>             
+                </div>
+              </li>
             {% endif %}
           {% endfor %}
         </ul>
@@ -18,6 +55,7 @@
   </div>
 {% endif %}
 
+<style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap')</style>
 {{ 'slick.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'slick.min.js' | asset_url }}" defer="defer"></script>
@@ -25,6 +63,7 @@
 <script>
   document.addEventListener("DOMContentLoaded", function(){
     $('#shopify-section-{{section.id}} .slider-product-proposal__slider-list').slick({ 
+      infinity: true,
       slidesToShow: {{section.settings.slider_items}}
      })
   })

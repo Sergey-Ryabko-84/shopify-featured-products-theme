@@ -1,0 +1,147 @@
+.slider-product-proposal {
+	font-family: "Montserrat", serif;
+	line-height: 1.35;
+	padding-top: 64px;
+}
+
+.slider-product-proposal__container {
+}
+
+.slider-product-proposal__content {
+}
+
+.slider-product-proposal__title-wrapper {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.slider-product-proposal__title {
+	display: inline;
+	margin: 0;
+	padding: 0 64px;
+	font-family: inherit;
+	font-size: 48px;
+	font-weight: 600;
+	text-align: center;
+	color: #5f5a2a;
+	background-color: #fff;
+}
+
+.slider-product-proposal__title-line {
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	border: 1px solid #e9ebce;
+	z-index: -1;
+}
+
+.slider-product-proposal__slider {
+	padding-top: 48px;
+}
+
+.slider-product-proposal__slider-list {
+	padding: 0;
+}
+
+.slider-product-proposal__slider-item {
+	margin: 0 0.3%;
+	overflow: hidden;
+}
+
+.slider-item__link {
+	text-decoration: none;
+}
+
+.slider-item__image {
+	width: 100%;
+	/* max-height: 12.9vw; */
+	overflow: hidden;
+	border-radius: 16px;
+	background-color: #e9ebce;
+	margin-bottom: 24px;
+}
+
+.slider-item__picture {
+	height: inherit;
+	width: inherit;
+	object-fit: contain;
+}
+
+.slider-item__content {
+	height: 312px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.slider-item__title {
+	font-family: inherit;
+	font-size: 20px;
+	font-weight: 700;
+	margin: 0;
+}
+
+.slider-item__description {
+	min-height: 77px;
+	font-family: inherit;
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 1.52;
+	color: #727272;
+	margin-top: 8px;
+}
+
+/* p.slider-item__description {
+	margin: 0 !important;
+} */
+
+.slider-item__price {
+	display: flex;
+	justify-content: space-between;
+}
+
+.slider-item__rating {
+	margin: 20px 0 16px;
+	text-align: right;
+	font-family: inherit;
+	font-size: 14px;
+	font-weight: 500;
+	color: #939c38;
+}
+
+.slider-item__price {
+	margin-bottom: 24px;
+}
+
+.slider-item__money {
+	font-family: inherit;
+	font-size: 24px;
+	font-weight: 700;
+	color: #89960c;
+}
+
+.slider-item__options {
+	padding: 8px 10px;
+	border: none;
+	border-radius: 8px;
+	background-color: #eceae0;
+	font-family: inherit;
+	font-size: 14px;
+	font-weight: 500;
+	color: #37341c;
+	outline: none;
+}
+
+.slider-item__submit_button {
+	width: 100%;
+	padding: 14px 0;
+	background-color: #939c38;
+	color: #fcfcfc;
+	border-radius: 50px;
+	border: none;
+	font-family: inherit;
+	font-size: 16px;
+	font-weight: 600;
+}
