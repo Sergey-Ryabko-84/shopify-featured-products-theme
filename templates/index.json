@@ -11,6 +11,45 @@
   "sections": {
     "section_slider_products_iNV9a9": {
       "type": "section-slider-products",
+      "blocks": {
+        "product_zUpYb6": {
+          "type": "product",
+          "settings": {
+            "proposal_product": "metal-raised-garden-bed-kits-4x8"
+          }
+        },
+        "product_MgQdNc": {
+          "type": "product",
+          "settings": {
+            "proposal_product": "all-in-one-raised-garden-bundles"
+          }
+        },
+        "product_FhkbNj": {
+          "type": "product",
+          "settings": {
+            "proposal_product": "single-water-flow-valve"
+          }
+        },
+        "product_7LzwTz": {
+          "type": "product",
+          "settings": {
+            "proposal_product": "garden-hose-accessories"
+          }
+        },
+        "product_PUe94G": {
+          "type": "product",
+          "settings": {
+            "proposal_product": "melnor-hand-wash-bucket-fill-hose-connection-hub-15109"
+          }
+        }
+      },
+      "block_order": [
+        "product_zUpYb6",
+        "product_MgQdNc",
+        "product_FhkbNj",
+        "product_7LzwTz",
+        "product_PUe94G"
+      ],
       "settings": {
         "include_margins": true
       }
