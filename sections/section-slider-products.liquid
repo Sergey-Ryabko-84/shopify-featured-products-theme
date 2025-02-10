@@ -9,7 +9,7 @@
           {% for block in section.blocks %}
             {% if block.settings.proposal_product != blanc %}
               {%  assign product = block.settings.proposal_product %}              
-              <li class="slider-product-proposal_item">{{ product.title }}</li>
+              <li class="slider-product-proposal_item" style="border: 1px solid red;">{{ product.title }}</li>
             {% endif %}
           {% endfor %}
         </ul>
@@ -24,7 +24,9 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function(){
-    $('#shopify-section-{{section.id}} .slider-product-proposal__slider-list').slick()
+    $('#shopify-section-{{section.id}} .slider-product-proposal__slider-list').slick({ 
+      slidesToShow: {{section.settings.slider_items}}
+     })
   })
 </script>
 
@@ -33,7 +35,17 @@
   "name": "Slider Products",
   "tag": "section",
   "class": "section",
-  "settings": [],
+  "settings": [
+    {
+      "type": "range",
+      "id": "slider_items",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "label": "Items per screen",
+      "default": 4
+    }
+  ],
   "blocks": [
     {
       "type": "product",
