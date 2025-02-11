@@ -12,6 +12,18 @@
     "section_slider_products_iNV9a9": {
       "type": "section-slider-products",
       "blocks": {
+        "product_mErAbj": {
+          "type": "product",
+          "settings": {
+            "proposal_product": "metal-raised-garden-bed-kits"
+          }
+        },
+        "product_f9748i": {
+          "type": "product",
+          "settings": {
+            "proposal_product": "metal-raised-garden-bed-kits-1"
+          }
+        },
         "product_zUpYb6": {
           "type": "product",
           "settings": {
@@ -22,6 +34,12 @@
           "type": "product",
           "settings": {
             "proposal_product": "all-in-one-raised-garden-bundles"
+          }
+        },
+        "product_ramyxg": {
+          "type": "product",
+          "settings": {
+            "proposal_product": "water-feed-tube-connections"
           }
         },
         "product_FhkbNj": {
@@ -41,16 +59,42 @@
           "settings": {
             "proposal_product": "melnor-hand-wash-bucket-fill-hose-connection-hub-15109"
           }
+        },
+        "product_AYtYNU": {
+          "type": "product",
+          "settings": {
+            "proposal_product": "gomito-collettore"
+          }
+        },
+        "product_c8rjCP": {
+          "type": "product",
+          "settings": {
+            "proposal_product": "grebenka-klapannaya-trojnik"
+          }
+        },
+        "product_ABqjFV": {
+          "type": "product",
+          "settings": {
+            "proposal_product": "garden-hose-accessories-1"
+          }
         }
       },
       "block_order": [
+        "product_mErAbj",
+        "product_f9748i",
         "product_zUpYb6",
         "product_MgQdNc",
+        "product_ramyxg",
         "product_FhkbNj",
         "product_7LzwTz",
-        "product_PUe94G"
+        "product_PUe94G",
+        "product_AYtYNU",
+        "product_c8rjCP",
+        "product_ABqjFV"
       ],
-      "settings": {}
+      "settings": {
+        "slider_items": 4
+      }
     },
     "featured_collection": {
       "type": "featured-collection",
