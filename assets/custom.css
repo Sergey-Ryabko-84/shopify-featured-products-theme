@@ -161,6 +161,10 @@ a.slider-item__link:hover + .slider-item__image .slider-item__picture {
 	background-color: #7b822f;
 }
 
+.slider-item__submit_button::after {
+	display: none;
+}
+
 @media screen and (max-width: 1024px) {
 	.slider-product-proposal__title-wrapper {
 		display: block;

@@ -42,7 +42,42 @@
                         <option value="0">Options</option>
                       </select>
                     </div>
-                    <button class="slider-item__submit_button">Add To Cart</button>
+                    {%- assign product_form_id = 'quick-add-' | append: section_id | append: product.id -%}            
+                    <product-form>
+                      {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                        <input
+                          type="hidden"
+                          name="id"
+                          value="{{ product.selected_or_first_available_variant.id }}"
+                          disabled
+                        >
+                        <button
+                          id="{{ product_form_id }}-submit"
+                          type="submit"
+                          name="add"
+                          class="button slider-item__submit_button"
+                          aria-haspopup="dialog"
+                          aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ product.id }}"
+                          aria-live="polite"
+                          data-sold-out-message="true"
+                          {% if product.selected_or_first_available_variant.available == false %}
+                            disabled
+                          {% endif %}
+                        >
+                          <span>
+                            {%- if product.selected_or_first_available_variant.available -%}
+                              {{ 'products.product.add_to_cart' | t }}
+                            {%- else -%}
+                              {{ 'products.product.sold_out' | t }}
+                            {%- endif -%}
+                          </span>
+                          <span class="sold-out-message hidden">
+                            {{ 'products.product.sold_out' | t }}
+                          </span>
+                          <div class="loading-overlay__spinner hidden"/>
+                        </button>
+                      {%- endform -%}
+                    </product-form>
                   </div>             
                 </div>
               </li>
@@ -58,6 +93,7 @@
 {{ 'slick.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'slick.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'add-to-cart-form.js' | asset_url }}" defer="defer"></script>
 
 <script>
   document.addEventListener("DOMContentLoaded", function(){
@@ -83,7 +119,7 @@
         }
       ]
      })
-  })
+  });
 </script>
 
 {% schema %}
