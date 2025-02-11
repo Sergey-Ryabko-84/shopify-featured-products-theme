@@ -4,14 +4,20 @@
       <div class="slider-product-proposal__content">
         <div class="slider-product-proposal__title-wrapper">
           <h2 class="slider-product-proposal__title">Featured Products</h2>
-          <div class="slider-product-proposal__title-line"/>
+          <div class="slider-product-proposal__title-line"></div>
         </div>
+        <ul class="tab-navigation">
+          {% for block in section.blocks %}
+            <li class="tab-navigation__item{% if forloop.first %} active{% endif %}" data-tab="{{ block.id }}">
+              {{ block.settings.tab_title }}
+            </li>
+          {% endfor %}
+        </ul>
       </div>
       <div class="slider-product-proposal__slider">
-        <ul class="slider-product-proposal__slider-list">
-          {% for block in section.blocks %}
-            {% if block.settings.proposal_product != blanc %}
-              {%  assign product = block.settings.proposal_product %}              
+        {% for block in section.blocks %}
+          <ul class="slider-product-proposal__slider-list{% if forloop.first %} active{% endif %}" data-content="{{ block.id }}">
+            {% for product in block.settings.tab_products %}
               <li class="slider-product-proposal__slider-item">
                 <a href="{{ product.url }}" class="slider-item__link"></a> 
                 <div class="slider-item__image">
@@ -81,9 +87,9 @@
                   </div>             
                 </div>
               </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
+            {% endfor %}
+          </ul>
+        {% endfor %}
       </div>
     </div>
   </div>
@@ -96,30 +102,61 @@
 <script src="{{ 'add-to-cart-form.js' | asset_url }}" defer="defer"></script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function(){
-    $('#shopify-section-{{section.id}} .slider-product-proposal__slider-list').slick({ 
-      infinity: true,
-      slidesToShow: {{section.settings.slider_items}},
-      slidesToScroll: {{section.settings.slider_items}},
+  document.addEventListener("DOMContentLoaded", function () {
+  const tabs = document.querySelectorAll('.tab-navigation__item');
+  const sliders = document.querySelectorAll('.slider-product-proposal__slider-list');
+
+  sliders.forEach(slider => {
+    if (slider.classList.contains('active')) {
+      initializeSlider(slider);
+    }
+  });
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function () {
+      const target = this.getAttribute('data-tab');
+
+      tabs.forEach(t => t.classList.remove('active'));
+      sliders.forEach(s => {
+        s.classList.remove('active');
+        if ($(s).hasClass('slick-initialized')) {
+          $(s).slick('unslick'); 
+        }
+      });
+
+      this.classList.add('active');
+      const activeSlider = document.querySelector(`.slider-product-proposal__slider-list[data-content="${target}"]`);
+      activeSlider.classList.add('active');
+
+      initializeSlider(activeSlider);
+    });
+  });
+
+  function initializeSlider(slider) {
+    $(slider).slick({
+      infinite: true,
+      slidesToShow: {{ section.settings.slider_items }},
+      slidesToScroll: {{ section.settings.slider_items }},
       speed: 300,
       responsive: [
         {
           breakpoint: 1024,
           settings: {
-            slidesToShow: {{section.settings.slider_items_tab}},
-            slidesToScroll: {{section.settings.slider_items_tab}}
+            slidesToShow: {{ section.settings.slider_items_tab }},
+            slidesToScroll: {{ section.settings.slider_items_tab }}
           }
         },
         {
           breakpoint: 576,
           settings: {
-            slidesToShow: {{section.settings.slider_items_mob}},
-            slidesToScroll: {{section.settings.slider_items_mob}}
+            slidesToShow: {{ section.settings.slider_items_mob }},
+            slidesToScroll: {{ section.settings.slider_items_mob }}
           }
         }
       ]
-     })
-  });
+    });
+  }
+});
 </script>
 
 {% schema %}
@@ -128,6 +165,12 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    {
+      "type": "number",
+      "id": "tabs_count",
+      "label": "Number of Tabs",
+      "default": 4
+    },
     {
       "type": "range",
       "id": "slider_items",
@@ -143,7 +186,7 @@
       "min": 1,
       "max": 4,
       "step": 1,
-      "label": "Items per tab screen",
+      "label": "Items per tablet screen",
       "default": 2
     },
     {
@@ -158,20 +201,25 @@
   ],
   "blocks": [
     {
-      "type": "product",
-      "name": "Proposal product",
+      "type": "tab",
+      "name": "Tab",
       "settings": [
         {
-          "type": "product",
-          "id": "proposal_product",
-          "label": "Our proposal Product"
+          "type": "text",
+          "id": "tab_title",
+          "label": "Tab Title",
+        },
+        {
+          "type": "product_list",
+          "id": "tab_products",
+          "label": "Products for this Tab"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Slider Products"
+      "name": "Slider Products with Tabs"
     }
   ]
 }
