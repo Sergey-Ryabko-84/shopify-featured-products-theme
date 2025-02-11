@@ -70,7 +70,7 @@
 }
 
 .slider-item__content {
-	height: 312px;
+	height: 320px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;

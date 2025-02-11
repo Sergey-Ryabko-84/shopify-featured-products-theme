@@ -50,9 +50,7 @@
         "product_7LzwTz",
         "product_PUe94G"
       ],
-      "settings": {
-        "include_margins": true
-      }
+      "settings": {}
     },
     "featured_collection": {
       "type": "featured-collection",
