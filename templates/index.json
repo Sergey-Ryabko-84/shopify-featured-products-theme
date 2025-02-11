@@ -12,123 +12,50 @@
     "section_slider_products_iNV9a9": {
       "type": "section-slider-products",
       "blocks": {
-        "product_mErAbj": {
-          "type": "product",
+        "tab_KQFEgt": {
+          "type": "tab",
           "settings": {
-            "proposal_product": "metal-raised-garden-bed-kits"
+            "tab_title": "Shop By Category",
+            "tab_products": []
           }
         },
-        "product_f9748i": {
-          "type": "product",
+        "tab_gRcYWQ": {
+          "type": "tab",
           "settings": {
-            "proposal_product": "metal-raised-garden-bed-kits-1"
+            "tab_title": "Best Sellers",
+            "tab_products": []
           }
         },
-        "product_zUpYb6": {
-          "type": "product",
+        "tab_hBjCYd": {
+          "type": "tab",
           "settings": {
-            "proposal_product": "metal-raised-garden-bed-kits-4x8"
+            "tab_title": "New Arrivals",
+            "tab_products": []
           }
         },
-        "product_MgQdNc": {
-          "type": "product",
+        "tab_kjDwU3": {
+          "type": "tab",
           "settings": {
-            "proposal_product": "all-in-one-raised-garden-bundles"
-          }
-        },
-        "product_ramyxg": {
-          "type": "product",
-          "settings": {
-            "proposal_product": "water-feed-tube-connections"
-          }
-        },
-        "product_FhkbNj": {
-          "type": "product",
-          "settings": {
-            "proposal_product": "single-water-flow-valve"
-          }
-        },
-        "product_7LzwTz": {
-          "type": "product",
-          "settings": {
-            "proposal_product": "garden-hose-accessories"
-          }
-        },
-        "product_PUe94G": {
-          "type": "product",
-          "settings": {
-            "proposal_product": "melnor-hand-wash-bucket-fill-hose-connection-hub-15109"
-          }
-        },
-        "product_AYtYNU": {
-          "type": "product",
-          "settings": {
-            "proposal_product": "gomito-collettore"
-          }
-        },
-        "product_c8rjCP": {
-          "type": "product",
-          "settings": {
-            "proposal_product": "grebenka-klapannaya-trojnik"
-          }
-        },
-        "product_ABqjFV": {
-          "type": "product",
-          "settings": {
-            "proposal_product": "garden-hose-accessories-1"
+            "tab_title": "On Sale",
+            "tab_products": []
           }
         }
       },
       "block_order": [
-        "product_mErAbj",
-        "product_f9748i",
-        "product_zUpYb6",
-        "product_MgQdNc",
-        "product_ramyxg",
-        "product_FhkbNj",
-        "product_7LzwTz",
-        "product_PUe94G",
-        "product_AYtYNU",
-        "product_c8rjCP",
-        "product_ABqjFV"
+        "tab_KQFEgt",
+        "tab_gRcYWQ",
+        "tab_hBjCYd",
+        "tab_kjDwU3"
       ],
       "settings": {
+        "tabs_count": 4,
         "slider_items": 4,
         "slider_items_tab": 3,
         "slider_items_mob": 2
       }
-    },
-    "featured_collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 44,
-        "padding_bottom": 36
-      }
     }
   },
   "order": [
-    "section_slider_products_iNV9a9",
-    "featured_collection"
+    "section_slider_products_iNV9a9"
   ]
 }
