@@ -371,7 +371,7 @@ a.slider-item__link:hover + .slider-item__image .slider-item__picture {
 }
 
 .slick-slider .slick-prev::before {
-	background-image: url("/assets/arrow_left.svg");
+	background-image: url("../assets/arrow_left.svg");
 }
 
 .slick-slider .slick-next {
@@ -379,7 +379,7 @@ a.slider-item__link:hover + .slider-item__image .slider-item__picture {
 }
 
 .slick-slider .slick-next::before {
-	background-image: url("/assets/arrow_right.svg");
+	background-image: url("../assets/arrow_right.svg");
 }
 
 .slick-slider .slick-prev:hover,
