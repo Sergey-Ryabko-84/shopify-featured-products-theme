@@ -16,28 +16,59 @@
           "type": "tab",
           "settings": {
             "tab_title": "Shop By Category",
-            "tab_products": []
+            "tab_products": [
+              "metal-raised-garden-bed-kits-with-garden-grids",
+              "digging-shovel-radius-garden",
+              "single-water-flow-valve",
+              "metal-raised-garden-bed-kits-4x8",
+              "all-in-one-raised-garden-bundles",
+              "garden-hose-accessories",
+              "gomito-collettore",
+              "garden-hose-accessories-1",
+              "grebenka-klapannaya-trojnik",
+              "melnor-hand-wash-bucket-fill-hose-connection-hub-15109"
+            ]
           }
         },
         "tab_gRcYWQ": {
           "type": "tab",
           "settings": {
             "tab_title": "Best Sellers",
-            "tab_products": []
+            "tab_products": [
+              "metal-raised-garden-bed-kits-with-garden-grids",
+              "digging-shovel-radius-garden",
+              "garden-hose-accessories-1",
+              "gomito-collettore"
+            ]
           }
         },
         "tab_hBjCYd": {
           "type": "tab",
           "settings": {
             "tab_title": "New Arrivals",
-            "tab_products": []
+            "tab_products": [
+              "garden-hose-accessories",
+              "digging-shovel-radius-garden",
+              "metal-raised-garden-bed-kits-with-garden-grids",
+              "single-water-flow-valve",
+              "melnor-hand-wash-bucket-fill-hose-connection-hub-15109"
+            ]
           }
         },
         "tab_kjDwU3": {
           "type": "tab",
           "settings": {
             "tab_title": "On Sale",
-            "tab_products": []
+            "tab_products": [
+              "metal-raised-garden-bed-kits-4x8",
+              "all-in-one-raised-garden-bundles",
+              "single-water-flow-valve",
+              "garden-hose-accessories",
+              "gomito-collettore",
+              "garden-hose-accessories-1",
+              "grebenka-klapannaya-trojnik",
+              "melnor-hand-wash-bucket-fill-hose-connection-hub-15109"
+            ]
           }
         }
       },
