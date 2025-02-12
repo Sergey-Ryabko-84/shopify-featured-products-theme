@@ -44,8 +44,17 @@
                       <div class="slider-item__money">
                         {{ product.price |  money }}
                       </div>
-                      <select name="options" id="options" class="slider-item__options">
-                        <option value="0">Options</option>
+                      <select name="options" class="slider-item__options">
+                        <option value="" disabled selected>Options</option>
+                        {% for variant in product.variants %}
+                          <option 
+                            value="{{ variant.id }}" 
+                            data-price="{{ variant.price | money }}" 
+                            data-image="{{ variant.image | image_url: width: 305 }}" 
+                            data-available="{{ variant.available }}">
+                            {{ variant.title }}
+                          </option>
+                        {% endfor %}
                       </select>
                     </div>
                     {%- assign product_form_id = 'quick-add-' | append: section_id | append: product.id -%}            
@@ -156,6 +165,35 @@
       ]
     });
   }
+
+  document.querySelectorAll('.slider-item__options').forEach(select => {
+    select.addEventListener('change', function () {
+      const selectedOption = this.options[this.selectedIndex];
+      const parentCard = this.closest('.slider-product-proposal__slider-item');
+
+      if (!selectedOption) return;
+
+      const priceElement = parentCard.querySelector('.slider-item__money');
+      const imageElement = parentCard.querySelector('.slider-item__picture');
+      const addToCartButton = parentCard.querySelector('.slider-item__submit_button');
+      const soldOutMessage = parentCard.querySelector('.sold-out-message');
+      const inputVariant = parentCard.querySelector('input[name="id"]');
+
+      priceElement.textContent = selectedOption.getAttribute('data-price');
+      imageElement.src = selectedOption.getAttribute('data-image');
+      inputVariant.value = selectedOption.value;
+
+      if (selectedOption.getAttribute('data-available') === "false") {
+        addToCartButton.disabled = true;
+        addToCartButton.querySelector('span').textContent = "";
+        soldOutMessage.classList.remove('hidden');
+      } else {
+        addToCartButton.disabled = false;
+        addToCartButton.querySelector('span').textContent = "Add to cart";
+        soldOutMessage.classList.add('hidden');
+      }
+    });
+  });
 });
 </script>
 
