@@ -62,7 +62,7 @@
             "tab_products": [
               "metal-raised-garden-bed-kits-4x8",
               "all-in-one-raised-garden-bundles",
-              "single-water-flow-valve",
+              "digging-shovel-radius-garden",
               "garden-hose-accessories",
               "gomito-collettore",
               "garden-hose-accessories-1",
@@ -81,8 +81,8 @@
       "settings": {
         "tabs_count": 4,
         "slider_items": 4,
-        "slider_items_tab": 3,
-        "slider_items_mob": 2
+        "slider_items_tab": 2,
+        "slider_items_mob": 1
       }
     }
   },

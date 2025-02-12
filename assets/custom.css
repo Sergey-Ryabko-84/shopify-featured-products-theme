@@ -192,6 +192,9 @@ a.slider-item__link:hover + .slider-item__image .slider-item__picture {
 }
 
 .slider-item__rating {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	margin: 20px 0 16px;
 	text-align: right;
 	font-family: inherit;
@@ -226,13 +229,13 @@ a.slider-item__link:hover + .slider-item__image .slider-item__picture {
 
 .slider-item__submit_button {
 	width: 100%;
-	padding: 17px 0;
+	padding: 12px 0;
 	background-color: #939c38;
 	color: #fcfcfc;
 	border-radius: 50px;
 	border: none;
 	font-family: inherit;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: 600;
 	transition: 0.1s linear background-color;
 }
@@ -247,6 +250,10 @@ a.slider-item__link:hover + .slider-item__image .slider-item__picture {
 
 .slider-item__submit_button::after {
 	display: none;
+}
+
+.submit_button__icon {
+	margin-right: 12px;
 }
 
 @media screen and (max-width: 1024px) {
@@ -283,7 +290,12 @@ a.slider-item__link:hover + .slider-item__image .slider-item__picture {
 	}
 
 	.slider-item__submit_button {
-		padding: 14px 0;
+		padding: 9px 0;
+	}
+
+	.submit_button__icon {
+		width: 24px;
+		height: 24px;
 	}
 
 	.slider-product-proposal__badge {
@@ -342,11 +354,16 @@ a.slider-item__link:hover + .slider-item__image .slider-item__picture {
 }
 
 .slick-slider .slick-arrow:before {
+	content: "";
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	font-size: 24px;
+	width: 24px;
+	height: 24px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .slick-slider .slick-prev {
@@ -354,7 +371,7 @@ a.slider-item__link:hover + .slider-item__image .slider-item__picture {
 }
 
 .slick-slider .slick-prev::before {
-	content: "<";
+	background-image: url("/assets/arrow_left.svg");
 }
 
 .slick-slider .slick-next {
@@ -362,7 +379,7 @@ a.slider-item__link:hover + .slider-item__image .slider-item__picture {
 }
 
 .slick-slider .slick-next::before {
-	content: ">";
+	background-image: url("/assets/arrow_right.svg");
 }
 
 .slick-slider .slick-prev:hover,

@@ -46,6 +46,7 @@
                   </div>
                   <div >
                     <div class="slider-item__rating">
+                      <span>⭐⭐⭐⭐⭐</span>
                       <span>4.7/223</span>
                     </div>
                     <div class="slider-item__price">
@@ -92,6 +93,11 @@
                             disabled
                           {% endif %}
                         >
+                          <img
+                            src="{{ 'basil_shopping-basket-solid.svg' | asset_url }}"
+                            alt=""
+                            class="submit_button__icon"
+                          >
                           <span>
                             {%- if product.selected_or_first_available_variant.available -%}
                               {{ 'products.product.add_to_cart' | t }}
