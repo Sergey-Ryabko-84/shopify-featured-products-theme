@@ -21,14 +21,22 @@
               <li class="slider-product-proposal__slider-item">
                 <a href="{{ product.url }}" class="slider-item__link"></a> 
                 <div class="slider-item__image">
-                  <img             
+                  <img
                     src="{{ product.featured_image | image_url: width: 305 }}"
                     alt="{{ product.featured_image.alt | default: product.title }}"
                     height="229"
-                    loading="lazy" 
+                    loading="lazy"
                     class="slider-item__picture"
                   >
-                </div>               
+                  <div 
+                    class="slider-product-proposal__badge badge--sale {% if product.compare_at_price and product.compare_at_price > product.price %}{% else %}hidden{% endif %}"
+                    data-compare-price="{{ product.compare_at_price }}"
+                    data-price="{{ product.price }}"
+                  >
+                    Sale
+                  </div>
+                  <div class="slider-product-proposal__badge badge--sold-out {% if product.available %}hidden{% endif %}">Sold out</div>
+                </div>         
                 <div class="slider-item__content">
                   <div>
                     <h4 class="slider-item__title">{{ product.title }}</h4>
@@ -44,18 +52,23 @@
                       <div class="slider-item__money">
                         {{ product.price |  money }}
                       </div>
-                      <select name="options" class="slider-item__options">
-                        <option value="" disabled selected>Options</option>
-                        {% for variant in product.variants %}
-                          <option 
-                            value="{{ variant.id }}" 
-                            data-price="{{ variant.price | money }}" 
-                            data-image="{{ variant.image | image_url: width: 305 }}" 
-                            data-available="{{ variant.available }}">
-                            {{ variant.title }}
-                          </option>
-                        {% endfor %}
-                      </select>
+                      {% if product.variants.size > 1 %}
+                        <select name="options" class="slider-item__options">
+                          <option value="" disabled selected>Options</option>
+                          {% for variant in product.variants %}
+                            <option 
+                              value="{{ variant.id }}" 
+                              data-price="{{ variant.price | money }}" 
+                              data-compare-price="{{ variant.compare_at_price | money }}" 
+                              data-image="{{ variant.image | image_url: width: 305 }}" 
+                              data-available="{{ variant.available }}">
+                              {{ variant.title }}
+                            </option>
+                          {% endfor %}
+                        </select>
+                      {% else %}
+                        <div class="slider-item__options-single-variant"></div>
+                      {% endif %}
                     </div>
                     {%- assign product_form_id = 'quick-add-' | append: section_id | append: product.id -%}            
                     <product-form>
@@ -178,6 +191,8 @@
       const addToCartButton = parentCard.querySelector('.slider-item__submit_button');
       const soldOutMessage = parentCard.querySelector('.sold-out-message');
       const inputVariant = parentCard.querySelector('input[name="id"]');
+      const saleBadge = parentCard.querySelector('.badge--sale');
+      const soldOutBadge = parentCard.querySelector('.badge--sold-out');
 
       priceElement.textContent = selectedOption.getAttribute('data-price');
       imageElement.src = selectedOption.getAttribute('data-image');
@@ -187,13 +202,28 @@
         addToCartButton.disabled = true;
         addToCartButton.querySelector('span').textContent = "";
         soldOutMessage.classList.remove('hidden');
+        soldOutBadge.classList.remove('hidden');
       } else {
         addToCartButton.disabled = false;
         addToCartButton.querySelector('span').textContent = "Add to cart";
         soldOutMessage.classList.add('hidden');
+        soldOutBadge.classList.add('hidden');
+      }
+
+      const compareAtPriceRaw = selectedOption.getAttribute('data-compare-price') || "0";
+      const currentPriceRaw = selectedOption.getAttribute('data-price') || "0";
+
+      const compareAtPrice = parseFloat(compareAtPriceRaw.replace(/[^0-9.]/g, ''));
+      const currentPrice = parseFloat(currentPriceRaw.replace(/[^0-9.]/g, ''));
+
+      if (compareAtPrice > currentPrice) {
+        saleBadge.classList.remove('hidden');
+      } else {
+        saleBadge.classList.add('hidden');
       }
     });
   });
+  
 });
 </script>
 
