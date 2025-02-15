@@ -18,103 +18,7 @@
         {% for block in section.blocks %}
           <ul class="slider-product-proposal__slider-list{% if forloop.first %} active{% endif %}" data-content="{{ block.id }}">
             {% for product in block.settings.tab_products %}
-              <li class="slider-product-proposal__slider-item">
-                <a href="{{ product.url }}" class="slider-item__link"></a> 
-                <div class="slider-item__image">
-                  <img
-                    src="{{ product.featured_image | image_url: width: 305 }}"
-                    alt="{{ product.featured_image.alt | default: product.title }}"
-                    height="229"
-                    loading="lazy"
-                    class="slider-item__picture"
-                  >
-                  <div 
-                    class="slider-product-proposal__badge badge--sale {% if product.compare_at_price and product.compare_at_price > product.price %}{% else %}hidden{% endif %}"
-                    data-compare-price="{{ product.compare_at_price }}"
-                    data-price="{{ product.price }}"
-                  >
-                    Sale
-                  </div>
-                  <div class="slider-product-proposal__badge badge--sold-out {% if product.available %}hidden{% endif %}">Sold out</div>
-                </div>         
-                <div class="slider-item__content">
-                  <div>
-                    <h4 class="slider-item__title">{{ product.title }}</h4>
-                    <div class="slider-item__description">
-                      {{ product.content | strip_html | truncate: 56}}
-                    </div>
-                  </div>
-                  <div >
-                    <div class="slider-item__rating">
-                      <span>⭐⭐⭐⭐⭐</span>
-                      <span>4.7/223</span>
-                    </div>
-                    <div class="slider-item__price">
-                      <div class="slider-item__money">
-                        {{ product.price |  money }}
-                      </div>
-                      {% if product.variants.size > 1 %}
-                        <select name="options" class="slider-item__options">
-                          <option value="" disabled selected>Options</option>
-                          {% for variant in product.variants %}
-                            <option 
-                              value="{{ variant.id }}" 
-                              data-price="{{ variant.price | money }}" 
-                              data-compare-price="{{ variant.compare_at_price | money }}" 
-                              data-image="{{ variant.image | image_url: width: 305 }}" 
-                              data-available="{{ variant.available }}">
-                              {{ variant.title }}
-                            </option>
-                          {% endfor %}
-                        </select>
-                      {% else %}
-                        <div class="slider-item__options-single-variant"></div>
-                      {% endif %}
-                    </div>
-                    {%- assign product_form_id = 'quick-add-' | append: section_id | append: product.id -%}            
-                    <product-form>
-                      {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
-                        <input
-                          type="hidden"
-                          name="id"
-                          value="{{ product.selected_or_first_available_variant.id }}"
-                          disabled
-                        >
-                        <button
-                          id="{{ product_form_id }}-submit"
-                          type="submit"
-                          name="add"
-                          class="button slider-item__submit_button"
-                          aria-haspopup="dialog"
-                          aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ product.id }}"
-                          aria-live="polite"
-                          data-sold-out-message="true"
-                          {% if product.selected_or_first_available_variant.available == false %}
-                            disabled
-                          {% endif %}
-                        >
-                          <img
-                            src="{{ 'basil_shopping-basket-solid.svg' | asset_url }}"
-                            alt=""
-                            class="submit_button__icon"
-                          >
-                          <span>
-                            {%- if product.selected_or_first_available_variant.available -%}
-                              {{ 'products.product.add_to_cart' | t }}
-                            {%- else -%}
-                              {{ 'products.product.sold_out' | t }}
-                            {%- endif -%}
-                          </span>
-                          <span class="sold-out-message hidden">
-                            {{ 'products.product.sold_out' | t }}
-                          </span>
-                          <div class="loading-overlay__spinner hidden"/>
-                        </button>
-                      {%- endform -%}
-                    </product-form>
-                  </div>             
-                </div>
-              </li>
+              {% include 'product-slider-item', product: product %}
             {% endfor %}
           </ul>
         {% endfor %}
@@ -128,109 +32,64 @@
 <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'slick.min.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'add-to-cart-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'slider-product-item-options.js' | asset_url }}" defer="defer"></script>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-  const tabs = document.querySelectorAll('.tab-navigation__item');
-  const sliders = document.querySelectorAll('.slider-product-proposal__slider-list');
+    const tabs = document.querySelectorAll('.tab-navigation__item');
+    const sliders = document.querySelectorAll('.slider-product-proposal__slider-list');
 
-  sliders.forEach(slider => {
-    if (slider.classList.contains('active')) {
-      initializeSlider(slider);
-    }
-  });
+    sliders.forEach(slider => {
+      if (slider.classList.contains('active')) {
+        initializeSlider(slider);
+      }
+    });
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', function () {
-      const target = this.getAttribute('data-tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function () {
+        const target = this.getAttribute('data-tab');
 
-      tabs.forEach(t => t.classList.remove('active'));
-      sliders.forEach(s => {
-        s.classList.remove('active');
-        if ($(s).hasClass('slick-initialized')) {
-          $(s).slick('unslick'); 
-        }
+        tabs.forEach(t => t.classList.remove('active'));
+        sliders.forEach(s => {
+          s.classList.remove('active');
+          if ($(s).hasClass('slick-initialized')) {
+            $(s).slick('unslick'); 
+          }
+        });
+
+        this.classList.add('active');
+        const activeSlider = document.querySelector(`.slider-product-proposal__slider-list[data-content="${target}"]`);
+        activeSlider.classList.add('active');
+
+        initializeSlider(activeSlider);
       });
-
-      this.classList.add('active');
-      const activeSlider = document.querySelector(`.slider-product-proposal__slider-list[data-content="${target}"]`);
-      activeSlider.classList.add('active');
-
-      initializeSlider(activeSlider);
     });
-  });
 
-  function initializeSlider(slider) {
-    $(slider).slick({
-      infinite: true,
-      slidesToShow: {{ section.settings.slider_items }},
-      slidesToScroll: {{ section.settings.slider_items }},
-      speed: 300,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: {{ section.settings.slider_items_tab }},
-            slidesToScroll: {{ section.settings.slider_items_tab }}
+    function initializeSlider(slider) {
+      $(slider).slick({
+        infinite: true,
+        slidesToShow: {{ section.settings.slider_items }},
+        slidesToScroll: {{ section.settings.slider_items }},
+        speed: 300,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: {{ section.settings.slider_items_tab }},
+              slidesToScroll: {{ section.settings.slider_items_tab }}
+            }
+          },
+          {
+            breakpoint: 576,
+            settings: {
+              slidesToShow: {{ section.settings.slider_items_mob }},
+              slidesToScroll: {{ section.settings.slider_items_mob }}
+            }
           }
-        },
-        {
-          breakpoint: 576,
-          settings: {
-            slidesToShow: {{ section.settings.slider_items_mob }},
-            slidesToScroll: {{ section.settings.slider_items_mob }}
-          }
-        }
-      ]
-    });
-  }
-
-  document.querySelectorAll('.slider-item__options').forEach(select => {
-    select.addEventListener('change', function () {
-      const selectedOption = this.options[this.selectedIndex];
-      const parentCard = this.closest('.slider-product-proposal__slider-item');
-
-      if (!selectedOption) return;
-
-      const priceElement = parentCard.querySelector('.slider-item__money');
-      const imageElement = parentCard.querySelector('.slider-item__picture');
-      const addToCartButton = parentCard.querySelector('.slider-item__submit_button');
-      const soldOutMessage = parentCard.querySelector('.sold-out-message');
-      const inputVariant = parentCard.querySelector('input[name="id"]');
-      const saleBadge = parentCard.querySelector('.badge--sale');
-      const soldOutBadge = parentCard.querySelector('.badge--sold-out');
-
-      priceElement.textContent = selectedOption.getAttribute('data-price');
-      imageElement.src = selectedOption.getAttribute('data-image');
-      inputVariant.value = selectedOption.value;
-
-      if (selectedOption.getAttribute('data-available') === "false") {
-        addToCartButton.disabled = true;
-        addToCartButton.querySelector('span').textContent = "";
-        soldOutMessage.classList.remove('hidden');
-        soldOutBadge.classList.remove('hidden');
-      } else {
-        addToCartButton.disabled = false;
-        addToCartButton.querySelector('span').textContent = "Add to cart";
-        soldOutMessage.classList.add('hidden');
-        soldOutBadge.classList.add('hidden');
-      }
-
-      const compareAtPriceRaw = selectedOption.getAttribute('data-compare-price') || "0";
-      const currentPriceRaw = selectedOption.getAttribute('data-price') || "0";
-
-      const compareAtPrice = parseFloat(compareAtPriceRaw.replace(/[^0-9.]/g, ''));
-      const currentPrice = parseFloat(currentPriceRaw.replace(/[^0-9.]/g, ''));
-
-      if (compareAtPrice > currentPrice) {
-        saleBadge.classList.remove('hidden');
-      } else {
-        saleBadge.classList.add('hidden');
-      }
-    });
+        ]
+      });
+    }        
   });
-  
-});
 </script>
 
 {% schema %}

@@ -1,0 +1,97 @@
+<li class="slider-product-proposal__slider-item">
+  <a href="{{ product.url }}" class="slider-item__link"></a> 
+  <div class="slider-item__image">
+    <img
+      src="{{ product.featured_image | image_url: width: 305 }}"
+      alt="{{ product.featured_image.alt | default: product.title }}"
+      height="229"
+      loading="lazy"
+      class="slider-item__picture"
+    >
+    <div 
+      class="slider-product-proposal__badge badge--sale {% if product.compare_at_price and product.compare_at_price > product.price %}{% else %}hidden{% endif %}"
+      data-compare-price="{{ product.compare_at_price }}"
+      data-price="{{ product.price }}"
+    >
+      Sale
+    </div>
+    <div class="slider-product-proposal__badge badge--sold-out {% if product.available %}hidden{% endif %}">Sold out</div>
+  </div>         
+  <div class="slider-item__content">
+    <div>
+      <h4 class="slider-item__title">{{ product.title }}</h4>
+      <div class="slider-item__description">
+        {{ product.content | strip_html | truncate: 56}}
+      </div>
+    </div>
+    <div >
+      <div class="slider-item__rating">
+        <span>⭐⭐⭐⭐⭐</span>
+        <span>4.7/223</span>
+      </div>
+      <div class="slider-item__price">
+        <div class="slider-item__money">
+          {{ product.price |  money }}
+        </div>
+        {% if product.variants.size > 1 %}
+          <select name="options" class="slider-item__options">
+            <option value="" disabled selected>Options</option>
+            {% for variant in product.variants %}
+              <option 
+                value="{{ variant.id }}" 
+                data-price="{{ variant.price | money }}" 
+                data-compare-price="{{ variant.compare_at_price | money }}" 
+                data-image="{{ variant.image | image_url: width: 305 }}" 
+                data-available="{{ variant.available }}">
+                {{ variant.title }}
+              </option>
+            {% endfor %}
+          </select>
+        {% else %}
+          <div class="slider-item__options-single-variant"></div>
+        {% endif %}
+      </div>
+      {%- assign product_form_id = 'quick-add-' | append: section_id | append: product.id -%}            
+      <product-form>
+        {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+          <input
+            type="hidden"
+            name="id"
+            value="{{ product.selected_or_first_available_variant.id }}"
+            disabled
+          >
+          <button
+            id="{{ product_form_id }}-submit"
+            type="submit"
+            name="add"
+            class="button slider-item__submit_button"
+            aria-haspopup="dialog"
+            aria-labelledby="{{ product_form_id }}-submit title-{{ section_id }}-{{ product.id }}"
+            aria-live="polite"
+            data-sold-out-message="true"
+            {% if product.selected_or_first_available_variant.available == false %}
+              disabled
+            {% endif %}
+          >
+            <img
+              src="{{ 'basil_shopping-basket-solid.svg' | asset_url }}"
+              alt=""
+              class="submit_button__icon"
+            >
+            <span>
+              {%- if product.selected_or_first_available_variant.available -%}
+                {{ 'products.product.add_to_cart' | t }}
+              {%- else -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- endif -%}
+            </span>
+            <span class="sold-out-message hidden">
+              {{ 'products.product.sold_out' | t }}
+            </span>
+            <div class="loading-overlay__spinner hidden"/>
+          </button>
+        {%- endform -%}
+      </product-form>
+    </div>             
+  </div>
+</li>
